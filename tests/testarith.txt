@@ -1,0 +1,6 @@
+// Arithmetic operators
+
+function main returns integer;
+begin
+    8 - 9 / 7;
+end;
