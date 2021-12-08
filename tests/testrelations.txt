@@ -1,6 +1,0 @@
-// relational testing
-
-function main returns integer;
-begin
-	(5+7>12 or 0) or false;
-end;

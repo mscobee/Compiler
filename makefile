@@ -1,14 +1,14 @@
-compile: scanner.o parser.o listing.o values.o
-	g++ -o compile scanner.o parser.o listing.o values.o
+compile: scanner.o parser.o listing.o types.o
+	g++ -o compile scanner.o parser.o listing.o types.o
 	
-scanner.o: scanner.c values.h listing.h tokens.h
+scanner.o: scanner.c types.h listing.h tokens.h
 	g++ -c scanner.c
 
 scanner.c: scanner.l	
 	flex scanner.l
 	mv lex.yy.c scanner.c
 
-parser.o: parser.c values.h listing.h symbols.h
+parser.o: parser.c types.h listing.h symbols.h
 	g++ -c parser.c
 
 parser.c tokens.h: parser.y
@@ -19,5 +19,5 @@ parser.c tokens.h: parser.y
 listing.o: listing.cc listing.h
 	g++ -c listing.cc
 
-values.o: values.cc values.h
-	g++ -c values.cc
+types.o: types.cc types.h
+	g++ -c types.cc
