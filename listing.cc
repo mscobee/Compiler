@@ -14,6 +14,9 @@ using namespace std;
 static int lineNumber;
 static string error = "";
 static int totalErrors = 0;
+static int semanticErrors = 0;
+static int lexicalErrors = 0;
+static int syntaxErrors = 0;
 
 static void displayErrors();
 
@@ -35,6 +38,13 @@ int lastLine()
 	printf("\r");
 	displayErrors();
 	printf("     \n");
+	if(totalErrors != 0) {
+        printf("Lexical Errors: %d\n", lexicalErrors);
+        printf("Syntax Errors: %d\n", syntaxErrors);
+        printf("Semantic Errors: %d\n", semanticErrors);
+    } else {
+        printf("Compiled Successfully.\n");
+    }
 	return totalErrors;
 }
     
@@ -45,6 +55,14 @@ void appendError(ErrorCategories errorCategory, string message)
 		"Semantic Error, Undeclared " };
 
 	error = messages[errorCategory] + message;
+	if(errorCategory == 0) {
+		lexicalErrors++;
+	}
+	else if(errorCategory == 1) {
+		syntaxErrors++;
+	} else if(errorCategory == 2 || errorCategory == 3 || errorCategory == 4) {
+		semanticErrors++;
+	}
 	totalErrors++;
 }
 

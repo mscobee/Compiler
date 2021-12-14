@@ -30,8 +30,10 @@ punc		[\(\),:;]
 {comment}	{ ECHO; nextLine();}
 {line}		{ ECHO; nextLine();}
 "<"		{ ECHO; return(RELOP); }
+">"      { ECHO; return(RELOP); }
 "+"		{ ECHO; return(ADDOP); }
 "*"		{ ECHO; return(MULOP); }
+"**"     { ECHO; return(EXPOP);}
 begin		{ ECHO; return(BEGIN_); }
 boolean		{ ECHO; return(BOOLEAN); }
 end		{ ECHO; return(END); }
@@ -43,6 +45,8 @@ is		{ ECHO; return(IS); }
 reduce		{ ECHO; return(REDUCE); }
 returns		{ ECHO; return(RETURNS); }
 and		{ ECHO; return(ANDOP); }
+true     {ECHO; yylval.type = BOOL_TYPE; return(BOOL_LITERAL);}
+false    {ECHO; yylval.type = BOOL_TYPE; return(BOOL_LITERAL);}
 {id}		{ ECHO; yylval.iden = (CharPtr)malloc(yyleng + 1); strcpy(yylval.iden, yytext); return(IDENTIFIER);}
 {int}		{ ECHO; yylval.type = INT_TYPE; return(INT_LITERAL); }
 {real_literal}  { ECHO; return(REAL_LITERAL);}
