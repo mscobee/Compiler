@@ -52,20 +52,34 @@ extern int yydebug;
     IDENTIFIER = 258,
     INT_LITERAL = 259,
     REAL_LITERAL = 260,
-    ADDOP = 261,
-    MULOP = 262,
-    RELOP = 263,
-    ANDOP = 264,
-    BEGIN_ = 265,
-    BOOLEAN = 266,
-    END = 267,
-    ENDREDUCE = 268,
-    FUNCTION = 269,
-    INTEGER = 270,
-    IS = 271,
-    REDUCE = 272,
-    RETURNS = 273,
-    REAL = 274
+    BOOL_LITERAL = 261,
+    ADDOP = 262,
+    MULOP = 263,
+    RELOP = 264,
+    ANDOP = 265,
+    EXPOP = 266,
+    OROP = 267,
+    NOTOP = 268,
+    REMOP = 269,
+    ARROW = 270,
+    THEN = 271,
+    WHEN = 272,
+    BEGIN_ = 273,
+    BOOLEAN = 274,
+    END = 275,
+    ENDREDUCE = 276,
+    FUNCTION = 277,
+    INTEGER = 278,
+    IS = 279,
+    REDUCE = 280,
+    RETURNS = 281,
+    CASE = 282,
+    ELSE = 283,
+    ENDCASE = 284,
+    ENDIF = 285,
+    IF = 286,
+    OTHERS = 287,
+    REAL = 288
   };
 #endif
 
@@ -78,7 +92,7 @@ union YYSTYPE
 	CharPtr iden;
 	Types type;
 
-#line 82 "parser.tab.h"
+#line 96 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

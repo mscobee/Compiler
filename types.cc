@@ -21,9 +21,12 @@ Types checkArithmetic(Types left, Types right)
 {
 	if (left == MISMATCH || right == MISMATCH)
 		return MISMATCH;
-	if (left == BOOL_TYPE || right == BOOL_TYPE)
+	else if(left == INT_TYPE ^ right == REAL_TYPE) {
+		return REAL_TYPE;
+	}
+	else if (left == BOOL_TYPE || right == BOOL_TYPE)
 	{
-		appendError(GENERAL_SEMANTIC, "Integer Type Required");
+		appendError(GENERAL_SEMANTIC, "Numeric Type Required");
 		return MISMATCH;
 	}
 	return INT_TYPE;
