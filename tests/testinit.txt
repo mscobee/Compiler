@@ -1,0 +1,6 @@
+function main returns integer;
+	b: integer is 7;
+	begin
+	c: integer is b * 3;
+	end;
+

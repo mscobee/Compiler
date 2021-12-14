@@ -18,6 +18,7 @@ using namespace std;
 
 ws		[ \t\r]+
 comment		\-\-.*\n
+comment2    \/\/.*\n
 line		[\n]
 id		[A-Za-z][A-Za-z0-9]*
 digit		[0-9]
@@ -28,12 +29,17 @@ punc		[\(\),:;]
 
 {ws}		{ ECHO; }
 {comment}	{ ECHO; nextLine();}
+{comment2}  	{ ECHO; nextLine();}
 {line}		{ ECHO; nextLine();}
 "<"		{ ECHO; return(RELOP); }
 ">"      { ECHO; return(RELOP); }
 "+"		{ ECHO; return(ADDOP); }
+"-"      { ECHO; return(ADDOP); }
 "*"		{ ECHO; return(MULOP); }
-"**"     { ECHO; return(EXPOP);}
+"**"     { ECHO; return(EXPOP); } 
+"or"     { ECHO; return(OROP);  }
+"not"    { ECHO; return(NOTOP); }
+"rem"    { ECHO; return(REMOP); }
 begin		{ ECHO; return(BEGIN_); }
 boolean		{ ECHO; return(BOOLEAN); }
 end		{ ECHO; return(END); }

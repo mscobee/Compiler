@@ -556,10 +556,10 @@ static const yytype_uint8 yyrline[] =
 {
        0,    45,    45,    48,    49,    50,    53,    54,    54,    58,
       63,    66,    66,    70,    72,    73,    74,    77,    80,    81,
-      84,    85,    86,    87,    90,    91,    92,    95,    98,   101,
-     102,   105,   106,   109,   110,   113,   114,   117,   118,   121,
-     122,   125,   126,   127,   130,   131,   134,   135,   138,   139,
-     140,   141,   142
+      84,    85,    86,    88,    91,    92,    93,    96,    99,   102,
+     103,   106,   107,   110,   111,   114,   115,   118,   119,   122,
+     123,   126,   127,   128,   131,   132,   135,   136,   139,   140,
+     141,   142,   143
 };
 #endif
 
@@ -1452,68 +1452,80 @@ yyreduce:
 #line 1453 "parser.tab.c"
     break;
 
-  case 31:
-#line 105 "parser.y"
-                                               {(yyval.type) = checkArithmetic((yyvsp[-1].type), (yyvsp[0].type));}
+  case 22:
+#line 87 "parser.y"
+        {(yyval.type) = checkIf((yyval.type),(yyvsp[-4].type),(yyvsp[-2].type));}
 #line 1459 "parser.tab.c"
     break;
 
-  case 32:
+  case 31:
 #line 106 "parser.y"
-         {(yyval.type) = INT_TYPE;}
+                                               {(yyval.type) = checkArithmetic((yyvsp[-1].type), (yyvsp[0].type));}
 #line 1465 "parser.tab.c"
     break;
 
-  case 33:
-#line 109 "parser.y"
-                               {(yyval.type) = checkLogical((yyvsp[-2].type),(yyvsp[0].type));}
+  case 32:
+#line 107 "parser.y"
+         {(yyval.type) = INT_TYPE;}
 #line 1471 "parser.tab.c"
     break;
 
-  case 35:
-#line 113 "parser.y"
-                            {(yyval.type) = checkRelational((yyvsp[-2].type), (yyvsp[0].type));}
+  case 33:
+#line 110 "parser.y"
+                               {(yyval.type) = checkLogical((yyvsp[-2].type),(yyvsp[0].type));}
 #line 1477 "parser.tab.c"
     break;
 
-  case 39:
-#line 121 "parser.y"
-                          {(yyval.type) = checkArithmetic((yyvsp[-2].type), (yyvsp[0].type));}
+  case 35:
+#line 114 "parser.y"
+                            {(yyval.type) = checkRelational((yyvsp[-2].type), (yyvsp[0].type));}
 #line 1483 "parser.tab.c"
     break;
 
-  case 41:
-#line 125 "parser.y"
-                              {(yyval.type) = checkArithmetic((yyvsp[-2].type), (yyvsp[0].type));}
+  case 39:
+#line 122 "parser.y"
+                          {(yyval.type) = checkArithmetic((yyvsp[-2].type), (yyvsp[0].type));}
 #line 1489 "parser.tab.c"
     break;
 
-  case 42:
+  case 41:
 #line 126 "parser.y"
                               {(yyval.type) = checkArithmetic((yyvsp[-2].type), (yyvsp[0].type));}
 #line 1495 "parser.tab.c"
     break;
 
-  case 45:
-#line 131 "parser.y"
-                             {(yyval.type) = checkArithmetic((yyvsp[-2].type),(yyvsp[0].type));}
+  case 42:
+#line 127 "parser.y"
+                              {(yyval.type) = checkRem((yyvsp[-2].type), (yyvsp[0].type));}
 #line 1501 "parser.tab.c"
     break;
 
-  case 48:
-#line 138 "parser.y"
-                           {(yyval.type) = (yyvsp[-1].type);}
+  case 45:
+#line 132 "parser.y"
+                             {(yyval.type) = checkArithmetic((yyvsp[-2].type),(yyvsp[0].type));}
 #line 1507 "parser.tab.c"
     break;
 
-  case 52:
-#line 142 "parser.y"
-                   {if (!symbols.find((yyvsp[0].iden), (yyval.type))) appendError(UNDECLARED, (yyvsp[0].iden));}
+  case 47:
+#line 136 "parser.y"
+                    {(yyval.type)=checkLogical((yyvsp[0].type), BOOL_TYPE);}
 #line 1513 "parser.tab.c"
     break;
 
+  case 48:
+#line 139 "parser.y"
+                           {(yyval.type) = (yyvsp[-1].type);}
+#line 1519 "parser.tab.c"
+    break;
 
-#line 1517 "parser.tab.c"
+  case 52:
+#line 143 "parser.y"
+                   {if (!symbols.find((yyvsp[0].iden), (yyval.type))) appendError(UNDECLARED, (yyvsp[0].iden));}
+#line 1525 "parser.tab.c"
+    break;
+
+
+#line 1529 "parser.tab.c"
 
       default: break;
     }
@@ -1745,7 +1757,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 144 "parser.y"
+#line 145 "parser.y"
 
 
 void yyerror(const char* message)

@@ -83,7 +83,8 @@ statement_with_handle_error:
 statement:
 	expression ';'|
 	REDUCE operator reductions ENDREDUCE ';'|
-	IF expression THEN statement_with_handle_error ELSE statement_with_handle_error ENDIF ';'|
+	IF expression THEN statement_with_handle_error ELSE statement_with_handle_error ENDIF ';'
+	{$$ = checkIf($$,$4,$6);} |
 	CASE expression IS case_block case_others ENDCASE ';' ;
 
 case_block:
@@ -123,7 +124,7 @@ term:
       
 factor:
 	factor MULOP exponent {$$ = checkArithmetic($1, $3);}|
-	factor REMOP exponent {$$ = checkArithmetic($1, $3);}|
+	factor REMOP exponent {$$ = checkRem($1, $3);}|
 	exponent ;
 
 exponent:
@@ -132,7 +133,7 @@ exponent:
 
 unary:
 	primary |
-	NOTOP unary;
+	NOTOP unary {$$=checkLogical($2, BOOL_TYPE);};
 
 primary:
 	'(' expression ')' {$$ = $2;}|
