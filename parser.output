@@ -49,8 +49,8 @@ Grammar
    30 reductions: reductions statement_with_handle_error
    31           | %empty
 
-   32 expression: expression OROP binary
-   33           | binary
+   32 expression: binary
+   33           | expression OROP binary
 
    34 relation: relation RELOP term
    35         | term
@@ -96,7 +96,7 @@ Terminals, with rules where they appear
     RELOP (264) 34
     ANDOP (265) 36
     EXPOP (266) 44
-    OROP (267) 32
+    OROP (267) 33
     NOTOP (268) 46
     REMOP (269) 41
     ARROW (270) 26 27
@@ -174,7 +174,7 @@ Nonterminals, with rules where they appear
         on right: 20 30
     expression <type> (56)
         on left: 32 33
-        on right: 19 21 22 27 32 47
+        on right: 19 21 22 27 33 47
     relation <type> (57)
         on left: 34 35
         on right: 34 36 37
@@ -588,7 +588,7 @@ State 38
 State 39
 
    19 statement: expression . ';'
-   32 expression: expression . OROP binary
+   33 expression: expression . OROP binary
 
     OROP  shift, and go to state 60
     ';'   shift, and go to state 61
@@ -606,12 +606,12 @@ State 40
 
 State 41
 
-   33 expression: binary .
+   32 expression: binary .
    36 binary: binary . ANDOP relation
 
     ANDOP  shift, and go to state 63
 
-    $default  reduce using rule 33 (expression)
+    $default  reduce using rule 32 (expression)
 
 
 State 42
@@ -730,7 +730,7 @@ State 55
 State 56
 
    22 statement: CASE expression . IS case_block case_others ENDCASE ';'
-   32 expression: expression . OROP binary
+   33 expression: expression . OROP binary
 
     OROP  shift, and go to state 60
     IS    shift, and go to state 72
@@ -739,7 +739,7 @@ State 56
 State 57
 
    21 statement: IF expression . THEN statement_with_handle_error ELSE statement_with_handle_error ENDIF ';'
-   32 expression: expression . OROP binary
+   33 expression: expression . OROP binary
 
     OROP  shift, and go to state 60
     THEN  shift, and go to state 73
@@ -747,7 +747,7 @@ State 57
 
 State 58
 
-   32 expression: expression . OROP binary
+   33 expression: expression . OROP binary
    47 primary: '(' expression . ')'
 
     OROP  shift, and go to state 60
@@ -763,7 +763,7 @@ State 59
 
 State 60
 
-   32 expression: expression OROP . binary
+   33 expression: expression OROP . binary
 
     IDENTIFIER    shift, and go to state 28
     INT_LITERAL   shift, and go to state 29
@@ -1014,12 +1014,12 @@ State 75
 
 State 76
 
-   32 expression: expression OROP binary .
+   33 expression: expression OROP binary .
    36 binary: binary . ANDOP relation
 
     ANDOP  shift, and go to state 63
 
-    $default  reduce using rule 32 (expression)
+    $default  reduce using rule 33 (expression)
 
 
 State 77
@@ -1268,7 +1268,7 @@ State 101
 State 102
 
    27 case_others: OTHERS ARROW expression . ';'
-   32 expression: expression . OROP binary
+   33 expression: expression . OROP binary
 
     OROP  shift, and go to state 60
     ';'   shift, and go to state 105

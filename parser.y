@@ -57,7 +57,9 @@ optional_variable:
 variable:
 	IDENTIFIER ':' type IS statement_with_handle_error 
 	{checkAssignment($3, $5, "Variable Initialization");
-		symbols.insert($1, $3);};
+		if(symbols.find($1,$3)) {appendError(GENERAL_SEMANTIC, "Dupicate Identifier.");}
+		symbols.insert($1, $3);
+		};
 
 parameters:
 	parameter optional_parameter;
@@ -84,7 +86,7 @@ statement:
 	expression ';'|
 	REDUCE operator reductions ENDREDUCE ';'|
 	IF expression THEN statement_with_handle_error ELSE statement_with_handle_error ENDIF ';'
-	{$$ = checkIf($$,$4,$6);} |
+	{$$=checkIf($2, $4, $6);} |
 	CASE expression IS case_block case_others ENDCASE ';' ;
 
 case_block:
@@ -107,8 +109,8 @@ reductions:
 	 {$$ = INT_TYPE;};
 	
 expression:
-	expression OROP binary {$$ = checkLogical($1,$3);} |
-	binary;
+	binary | 
+	expression OROP binary {$$ = checkLogical($1,$3);};
 
 relation:
 	relation RELOP term {$$ = checkRelational($1, $3);}|
@@ -124,7 +126,7 @@ term:
       
 factor:
 	factor MULOP exponent {$$ = checkArithmetic($1, $3);}|
-	factor REMOP exponent {$$ = checkRem($1, $3);}|
+	factor REMOP exponent {$$ = checkForIntegers($1, $3);}|
 	exponent ;
 
 exponent:
@@ -133,7 +135,7 @@ exponent:
 
 unary:
 	primary |
-	NOTOP unary {$$=checkLogical($2, BOOL_TYPE);};
+	NOTOP unary;
 
 primary:
 	'(' expression ')' {$$ = $2;}|
