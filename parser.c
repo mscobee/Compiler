@@ -1508,20 +1508,26 @@ yyreduce:
 #line 1509 "parser.tab.c"
     break;
 
+  case 47:
+#line 138 "parser.y"
+                    {(yyval.type)=checkLogical((yyvsp[0].type), BOOL_TYPE);}
+#line 1515 "parser.tab.c"
+    break;
+
   case 48:
 #line 141 "parser.y"
                            {(yyval.type) = (yyvsp[-1].type);}
-#line 1515 "parser.tab.c"
+#line 1521 "parser.tab.c"
     break;
 
   case 52:
 #line 145 "parser.y"
                    {if (!symbols.find((yyvsp[0].iden), (yyval.type))) appendError(UNDECLARED, (yyvsp[0].iden));}
-#line 1521 "parser.tab.c"
+#line 1527 "parser.tab.c"
     break;
 
 
-#line 1525 "parser.tab.c"
+#line 1531 "parser.tab.c"
 
       default: break;
     }

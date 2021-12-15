@@ -354,8 +354,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 47
-#define YY_END_OF_BUFFER 48
+#define YY_NUM_RULES 46
+#define YY_END_OF_BUFFER 47
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -365,20 +365,20 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[132] =
     {   0,
-        0,    0,   48,   46,    1,    4,   45,   15,   13,   14,
-       16,   43,    7,    8,   10,   42,   42,   42,   42,   42,
-       42,   42,   42,   42,   42,   42,   42,    1,   20,    0,
-        0,    9,   44,   43,   12,   19,   11,   42,   42,    0,
-       42,   42,   42,   42,   42,   42,   42,   42,   37,   42,
-       29,   42,   17,   42,   42,   42,   42,   42,    0,    2,
-        0,    3,   44,   44,   44,   42,   32,   42,   42,   42,
-       42,   24,   42,   42,   42,   18,   42,   42,   42,   21,
-       42,   42,   42,   42,   44,   42,   42,   33,   34,   42,
-       42,   42,   42,   42,   42,   42,   28,   42,   42,   40,
+        0,    0,   47,   45,    1,    4,   44,   15,   13,   14,
+       16,   42,    7,    8,   10,   41,   41,   41,   41,   41,
+       41,   41,   41,   41,   41,   41,   41,    1,   20,    0,
+        0,    9,   43,   42,   12,   19,   11,   41,   41,    0,
+       41,   41,   41,   41,   41,   41,   41,   41,   37,   41,
+       29,   41,   17,   41,   41,   41,   41,   41,    0,    2,
+        0,    3,   43,   43,   43,   41,   32,   41,   41,   41,
+       41,   24,   41,   41,   41,   18,   41,   41,   41,   21,
+       41,   41,   41,   41,   43,   41,   41,   33,   34,   41,
+       41,   41,   41,   41,   41,   41,   28,   41,   41,   39,
 
-        5,   41,   22,   42,   42,   36,   42,    6,   42,   42,
-       42,   42,   42,   42,   42,   42,   42,   42,   38,   30,
-       42,   23,   35,   42,   42,   27,   31,   42,   26,   25,
+        5,   40,   22,   41,   41,   36,   41,    6,   41,   41,
+       41,   41,   41,   41,   41,   41,   41,   41,   38,   30,
+       41,   23,   35,   41,   41,   27,   31,   41,   26,   25,
         0
     } ;
 
@@ -889,12 +889,12 @@ YY_RULE_SETUP
 case 5:
 YY_RULE_SETUP
 #line 34 "scanner.l"
-{ ECHO; return(BOOL_LITERAL); }
+{ ECHO; yylval.type = BOOL_TYPE; return(BOOL_LITERAL); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 35 "scanner.l"
-{ ECHO; return(BOOL_LITERAL); }
+{ ECHO; yylval.type = BOOL_TYPE; return(BOOL_LITERAL); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
@@ -1059,49 +1059,44 @@ YY_RULE_SETUP
 case 39:
 YY_RULE_SETUP
 #line 68 "scanner.l"
-{ECHO; return(REAL); }
+{ECHO; return(THEN); }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 69 "scanner.l"
-{ECHO; return(THEN); }
+{ECHO; return(WHEN); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 70 "scanner.l"
-{ECHO; return(WHEN); }
+{ ECHO; yylval.iden = (CharPtr)malloc(yyleng + 1); strcpy(yylval.iden, yytext); return(IDENTIFIER);}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 71 "scanner.l"
-{ ECHO; yylval.iden = (CharPtr)malloc(yyleng + 1); strcpy(yylval.iden, yytext); return(IDENTIFIER);}
+{ ECHO; yylval.type = INT_TYPE; return(INT_LITERAL); }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 72 "scanner.l"
-{ ECHO; yylval.type = INT_TYPE; return(INT_LITERAL); }
+{ ECHO; yylval.type = REAL_TYPE; return(REAL_LITERAL);}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 73 "scanner.l"
-{ ECHO; yylval.type = REAL_TYPE; return(REAL_LITERAL);}
+{ ECHO; return(yytext[0]); }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 74 "scanner.l"
-{ ECHO; return(yytext[0]); }
+{ ECHO; appendError(LEXICAL, yytext); }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 75 "scanner.l"
-{ ECHO; appendError(LEXICAL, yytext); }
-	YY_BREAK
-case 47:
-YY_RULE_SETUP
-#line 77 "scanner.l"
+#line 76 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 1105 "lex.yy.c"
+#line 1100 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2106,6 +2101,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 77 "scanner.l"
+#line 76 "scanner.l"
 
 

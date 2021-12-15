@@ -135,7 +135,7 @@ exponent:
 
 unary:
 	primary |
-	NOTOP unary;
+	NOTOP unary {$$=checkLogical($2, BOOL_TYPE);};
 
 primary:
 	'(' expression ')' {$$ = $2;}|

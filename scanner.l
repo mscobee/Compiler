@@ -31,8 +31,8 @@ punc		[\(\),:;]
 {comment}	{ ECHO; nextLine();}
 {comment2}  	{ ECHO; nextLine();}
 {line}		{ ECHO; nextLine();}
-"true"    { ECHO; return(BOOL_LITERAL); }
-"false"     { ECHO; return(BOOL_LITERAL); }
+"true"    { ECHO; yylval.type = BOOL_TYPE; return(BOOL_LITERAL); }
+"false"     { ECHO; yylval.type = BOOL_TYPE; return(BOOL_LITERAL); }
 "<"		{ ECHO; return(RELOP); }
 "="		{ ECHO; return(RELOP); }
 "/="	{ ECHO; return(RELOP); }
@@ -65,7 +65,6 @@ endcase    {ECHO; return(ENDCASE); }
 endif    {ECHO; return(ENDIF); }
 if    {ECHO; return(IF); }
 others    {ECHO; return(OTHERS); }
-real    {ECHO; return(REAL); }
 then    {ECHO; return(THEN); }
 when    {ECHO; return(WHEN); }
 {id}		{ ECHO; yylval.iden = (CharPtr)malloc(yyleng + 1); strcpy(yylval.iden, yytext); return(IDENTIFIER);}
